@@ -1,10 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 from setuptools import setup
 
 setup(
-    name='hive-executor-py',
+    name='nau_net',
     version='1.0.0.dev1',
-    description='A hive client python project',
+    description='NAU school network CLI.',
     url='https://github.com/calvinjiang/hive-executor-py',
     author='zhanba',
     author_email='c5e1856@163.com',

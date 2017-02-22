@@ -3,7 +3,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import requests
-from nau_net.loginHelper import read_conf_url
+from nau.loginHelper import read_conf_url
 
 def logout():
     get_url = read_conf_url() + 'F.htm'

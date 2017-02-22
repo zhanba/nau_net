@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import requests
-from nau_net.loginHelper import get_post_url, read_conf_account, write_conf_url
+from nau.loginHelper import get_post_url, read_conf_account, write_conf_url
 
 def login():
     headers = {
