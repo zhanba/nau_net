@@ -20,6 +20,7 @@ setup(
     ],
     keywords='NAU network CLI',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    package_data={'nau': ['conf.ini']},
     install_requires=['click', 'requests', 'beautifulsoup4'],
     entry_points={
         'console_scripts': [

@@ -35,69 +35,8 @@ window.location='http://202.195.241.28/1.htm'
 
 __author__ = 'zhanba'
 
-import requests, re, ConfigParser
+import requests, re, configparser
 from bs4 import BeautifulSoup
-
-# CONF_PATH = './conf.ini'
-from pkg_resources import Requirement, resource_filename, resource_exists
-
-conf_file = resource_filename(__name__, "conf.ini")
-
-
-def _get_redirect_page():
-    init_url = 'http://www.baidu.com'
-    try:
-        r = requests.get(init_url)
-        r.encoding = 'gb2312'
-        page = r.text
-        matches = re.findall(r"http://[A-Za-z0-9./]+.htm", page)
-        first_redirect_page = matches[0]
-        ip = re.findall(r"[0-9.]+", first_redirect_page)[0]
-        r = requests.get(first_redirect_page)
-        r.encoding = 'gb2312'
-        page = r.text
-        matches = re.findall(r"\"[a-zA-Z]{3}.htm\"", page)
-        redirect_page = matches[len(matches) - 1].replace("\"", "")
-        return "http://" + ip + "/" +redirect_page
-    except Exception as e:
-        raise e
-
-def get_post_url():
-    # get login page url
-    login_page_url = _get_redirect_page()
-    try:
-        login_page = requests.get(login_page_url).text
-        soup = BeautifulSoup(login_page, 'html.parser')
-        post_url = soup.form['action']
-        return post_url
-    except Exception as e:
-        print('exception: ', e)
-
-def write_conf_url(url):
-    cf = ConfigParser.ConfigParser()
-    cf.read(conf_file)
-    cf.set('url', 'url', url)
-    cf.write(open(conf_file, 'r+'))
-
-def read_conf_url():
-    cf = ConfigParser.ConfigParser()
-    try:
-        cf.read(conf_file)
-        url = cf.get("url", "url")
-        return url
-    except Exception as e:
-        raise e
-
-def read_conf_account():
-    cf = ConfigParser.ConfigParser()
-    try:
-        cf.read(conf_file)
-        username = cf.get("account", "username")
-        password = cf.get("account", "password")
-        return (username, password)
-    except Exception as e:
-        raise e
-
 
 if __name__ == '__main__':
     get_post_url()
