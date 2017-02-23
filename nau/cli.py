@@ -4,6 +4,7 @@
 import click
 from .network import login as nau_login
 from .network import logout as nau_logout
+from .network import test_network, network_use_condition
 from .config import get_config_status, add_user, remove_user
 
 @click.group()
@@ -29,6 +30,12 @@ def status():
         print("----------------NO USER!-------------")
     else:
         print("---------------Current User is %s---------" % username)
+    if test_network():
+        print("Current login to the network.")
+        network_use_condition()
+    else:
+        print("Current offline.")
+
 
 @click.command()
 @click.option('--username', prompt=True)

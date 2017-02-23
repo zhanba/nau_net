@@ -65,4 +65,4 @@ def read_conf_account():
         password = cf.get("account", "password")
         return (username, password)
     except Exception as e:
-        raise e
+        return None

@@ -77,6 +77,9 @@ def login():
     post_url = get_post_url()
     write_conf_url(post_url)
     account = read_conf_account()
+    if account is None:
+        print("No User Found!")
+        return
     print(account[0])
     data = {
         'DDDDD': account[0],
@@ -110,3 +113,32 @@ def logout():
             print('failed logout')
     except Exception as e:
         print('exception: ' + e)
+
+def test_network():
+    BAIDU_URL = "https://www.baidu.com"
+    try:
+        response = requests.get(BAIDU_URL)
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
+
+def network_use_condition():
+    try:
+        response = requests.get(read_conf_url())
+        if response.status_code == 200:
+            response.encoding = 'gb2312'
+            page = response.text
+            time_str = re.findall(r"time='[\d ]+';", page)[0]
+            flow_str = re.findall(r"flow='[\d ]+';", page)[0]
+            fee_str = re.findall(r"fee='[\d ]+';", page)[0]
+            time = re.findall(r"\d+", time_str)[0]
+            print('Time: {:.3f} h'.format(int(time)/60))
+            flow = re.findall(r"\d+", flow_str)[0]
+            print("Flow: {:.3f} GB".format(int(flow)/1024/1024))
+            fee = re.findall(r"\d+", fee_str)[0]
+            print("Remain: {:.3f} RMB".format(int(fee)/10000))
+    except Exception as e:
+        raise e
