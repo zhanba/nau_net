@@ -2,44 +2,51 @@
 # -*- coding: utf-8 -*-
 
 import click
-from nau.network import login as nau_login
-from nau.network import logout as nau_logout
-from .config import Config
-
+from .network import login as nau_login
+from .network import logout as nau_logout
+from .config import get_config_status, add_user, remove_user
 
 @click.group()
 def cli():
-    """ NAU school network CLI.
-        add user
-        remove user
-        login status
-        login to current user
-        logout
-    """
+    """ NAU school network CLI."""
     pass
 
 @click.command()
 def login():
+    """login to network"""
     nau_login()
 
 @click.command()
 def logout():
+    """logout network"""
     nau_logout()
 
 @click.command()
 def status():
-    pass
+    """show current user and network status"""
+    username = get_config_status()
+    if username is None:
+        print("----------------NO USER!-------------")
+    else:
+        print("---------------Current User is %s---------" % username)
 
 @click.command()
-@click.option('--name', prompt=True)
+@click.option('--username', prompt=True)
 @click.option('--password', prompt=True)
-def add(name, password):
-    Config.add_user(name, password)
-    click.echo('Hello %s!' % name)
+def add(username, password):
+    """
+    add user for the network
+    --username
+    --password
+    """
+    add_user(username, password)
+    click.echo('Add user %s successful!' % username)
 
 @click.command()
 def remove():
-    Config.remove_user()
+    """remove current account(include username and password)"""
+    remove_user()
+    click.echo("Done!")
 
 cli.add_command(login)
 cli.add_command(logout)

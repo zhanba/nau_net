@@ -26,5 +26,6 @@ setup(
         'console_scripts': [
             'nau = nau.cli:cli',
         ],
-    }
+    },
+    zip_safe=True
 )
