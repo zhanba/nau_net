@@ -1,6 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+from __future__ import division
+from __future__ import absolute_import
+from future import standard_library
+standard_library.install_aliases()
 import click
 from .network import login as nau_login
 from .network import logout as nau_logout
@@ -27,14 +32,14 @@ def status():
     """show current user and network status"""
     username = get_config_status()
     if username is None:
-        print("----------------NO USER!-------------")
+        click.echo("----------------NO USER!-------------")
     else:
-        print("---------------Current User is %s---------" % username)
+        click.echo("---------------Current User is %s---------" % username)
     if test_network():
-        print("Current login to the network.")
+        click.echo("Current login to the network.")
         network_use_condition()
     else:
-        print("Current offline.")
+        click.echo("Current offline.")
 
 
 @click.command()

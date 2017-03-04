@@ -21,7 +21,7 @@ nau status
 ## Develop
 ```bash
 git clone
-pip install requirement.txt
+pip install -r requirement.txt
 pip install -e . #install nau_net in editable mode
 ```
 
@@ -35,4 +35,4 @@ twine upload dist/*
 
 
 ## Plan
-- Python2.x Compatibility
+- ~~Python2.x Compatibility~~

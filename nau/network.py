@@ -32,7 +32,14 @@ window.location='http://202.195.241.28/1.htm'
 登录页的form表单提交地址根据地区而不同：教学区为http://172.16.0.3/， 宿舍区为http://172.16.0.4/
 
 '''
+from __future__ import print_function
+from __future__ import division
+from __future__ import unicode_literals
+from __future__ import absolute_import
 
+from builtins import int
+from future import standard_library
+standard_library.install_aliases()
 import re
 import requests
 from bs4 import BeautifulSoup
